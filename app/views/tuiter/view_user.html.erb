@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-3 well">
+      <img class="img-responsive img-thumbnail" src="<%= @user[:image]%>" alt="Foto de <%= @user[:username] %>">
+      <br><br>
+      <b><%= @user[:username] %></b>
+      <p><%= @user[:bio] %></p>
+    </div>
+    <div class="col-xs-12 col-sm-1"></div>
+    <div class="col-xs-12 col-sm-8 well">
+      <% i=0 %>
+      <% @posts.each do |post| %>
+          <div class="row post">
+            <div class="col-xs-2">
+              <img class="img-responsive img-thumbnail" src="<%= @user[:image]%>" alt="Foto de <%= @user[:username] %>">
+            </div>
+            <div class="col-xs-10">
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                  <p><b><%= @user[:username] %></b>:
+                    <%= post[:location] %></p>
+                </div>
+                <div class="col-md-3 col-xs-6 date">
+                  <p><%= post[:date] %></p>
+                </div>
+                <div class="col-md-3 col-xs-6 likes">
+                  <button class="btn btn-xs btn-default" id="botaoCurtida<%= i %>" onclick="pressButton(<%= i %>)">
+                    <!--span id="curtidas<%=i%>"></span> <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span-->
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <p><%= post[:content] %></p><br>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% i+=1 %>
+      <% end %>
+    </div>
+  </div>
+</div> 
