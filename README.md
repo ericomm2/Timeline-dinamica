@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -22,3 +23,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+=======
+# Timeline-dinamica
+Uma Timeline dinâmica, estilo Twitter, para a Etapa de Seleção da Elcoma
+>>>>>>> ce6c480e01536e10991bf4ff9c7e0aaa44abb01a
