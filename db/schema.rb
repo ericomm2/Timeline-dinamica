@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 3) do
     t.string "username"
     t.string "password"
     t.text   "bio"
-    t.string "recov_pass"
     t.string "email"
     t.string "image"
   end

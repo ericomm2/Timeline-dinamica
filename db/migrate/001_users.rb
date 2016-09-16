@@ -5,7 +5,6 @@ class Users < ActiveRecord::Migration
       t.column :username, :string
       t.column :password, :string
       t.column :bio, :text
-      t.column :recov_pass, :string
       t.column :email, :string
       t.column :image, :string
     end

@@ -108,7 +108,7 @@ class TuiterController < ApplicationController
         user.password = Digest::MD5.hexdigest(params[:user][:password])
         user.save
         session[:user_id] = user.id
-        redirect_to("/#{params[:user][:username]}")
+        redirect_to("/home")
       end
     else
       redirect_to("/")
