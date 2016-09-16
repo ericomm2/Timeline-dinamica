@@ -1,5 +1,33 @@
 class TuiterController < ApplicationController
 
+  def new_post
+    if ! check_var session[:user_id]
+      redirect_to("/")
+    else
+      post = Post.new
+      post.content = params[:content]
+      post.datetime = Time.now
+      post.location = params[:location]
+      post.id_user = session[:user_id]
+      post.save(validate: false)
+      redirect_to("/home")
+    end
+  end
+
+  def add_like
+    if check_var session[:user_id]
+      like = Like.new(post_id: params[:post_id], user_id: params[:user_id])
+      like.save(validate: false)
+    end
+  end
+
+  def remove_like
+    if check_var session[:user_id]
+      rm = Like.where("post_id = ? AND user_id = ?", params[:post_id],params[:user_id]).first
+      Like.destroy(rm[:id])
+    end
+  end
+
   def home
     if check_var session[:user_id]
       redirect_to("/home")
@@ -52,6 +80,18 @@ class TuiterController < ApplicationController
       redirect_to("/")
     else
       @user = User.find(session[:user_id])
+      posts = Post.order(datetime: :desc)
+      @posts = []
+      posts.each do |post|
+        @posts << post.as_json
+        user = User.find(post[:id_user])
+        @posts.last[:username] = user[:username]
+        @posts.last[:image] = user[:image]
+        likes = Like.where(post_id: post[:id]).count
+        @posts.last[:likes] = likes
+        isliked = Like.where("post_id = ? AND user_id = ?", post[:id],post[:id_user]).count
+        isliked > 0 ? @posts.last[:btn]="btn-success" : @posts.last[:btn]="btn-default"
+      end
     end
   end
 
@@ -67,7 +107,7 @@ class TuiterController < ApplicationController
         user.image = params[:user][:foto]
         user.password = Digest::MD5.hexdigest(params[:user][:password])
         user.save
-        #session[:user_id] = user.id
+        session[:user_id] = user.id
         redirect_to("/#{params[:user][:username]}")
       end
     else
@@ -96,4 +136,5 @@ class TuiterController < ApplicationController
     flash[:email] = true unless test_email == nil
     test_email or test_user
   end
+
 end
