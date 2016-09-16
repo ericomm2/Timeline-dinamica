@@ -85,7 +85,11 @@ class TuiterController < ApplicationController
     if !check_var session[:user_id]
       redirect_to("/")
     else
-      @user = User.find(session[:user_id])
+      begin
+        @user = User.find(session[:user_id])
+      rescue ActiveRecord::RecordNotFound => e
+        redirect_to("/logout") and return
+      end
       posts = Post.order(datetime: :desc)
       @posts = []
       posts.each do |post|

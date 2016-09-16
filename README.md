@@ -12,6 +12,8 @@
 <p>Para executar o Website, é necessário alguns comandos simples. Com o projeto baixado e descompactado, navegue até a pasta do projeto com o terminal e execute:</p>
 <b>bundle install</b>
 <p>Esse comando instalará os recursos necessários ao projeto</p>
+<b>rake db:migrate</b>
+<p>Esse comando irá criar o arquivo ./db/schema.rb</p>
 <b>rake db:setup</b>
 <p>Esse comando irá configurar a base de dados</p>
 <b>rake db:seed</b>
