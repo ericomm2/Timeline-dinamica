@@ -35,13 +35,15 @@ class TuiterController < ApplicationController
     if ! check_var session[:user_id]
       redirect_to("/")
     else
-      user = User.find(session[:user_id])
-      user.username = params[:user][:username]
-      user.email = params[:user][:email]
-      user.bio = params[:user][:bio]
-      user.image = params[:user][:foto]
-      user.save
-      redirect_to("/home")
+      if check_user params[:user]
+        redirect_to "/home"
+      else
+        user = User.find(session[:user_id])
+        user.bio = params[:user][:bio]
+        user.image = params[:user][:foto]
+        user.save
+        redirect_to("/home")
+      end
     end
   end
 
@@ -76,6 +78,10 @@ class TuiterController < ApplicationController
   def view_user
     @user = User.find_by(username: params[:username])
     @posts = Post.where(id_user: @user[:id]).order(datetime: :desc)
+    @current_user = false
+    if check_var session[:user_id] and @user[:id] == session[:user_id]
+      @current_user = true
+    end
   end
 
   private

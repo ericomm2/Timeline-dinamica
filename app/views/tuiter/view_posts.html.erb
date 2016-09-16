@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-3 well">
       <img class="img-responsive img-thumbnail" src="<%= @user[:image] %>" alt="Foto de <%= @user[:username] %>">
       <br><br>
-      <b><%= @user[:username] %></b>
+      <b><a href="/<%= @user[:username] %>"><%= @user[:username] %></a></b>
       <p><%= @user[:bio] %></p>
       <div class="row">
         <div class="col-xs-6">
